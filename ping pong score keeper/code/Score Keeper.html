@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Score Keeper</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <style>
+        .winner {
+            color: green
+        }
+
+        .loser {
+            color: red
+        }
+        #subtitile{
+            padding-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-three-fifths is-offset-one-fifth">
+                <div class="card">
+                    <div class="card-image">
+                        <figure class="image is-2by1">
+                            <img src="https://images.unsplash.com/photo-1534158914592-062992fbe900?q=80&w=2998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="">
+                        </figure>
+                    </div>
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Ping Pong Socre Keeper
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <h1 class="is-size-1 has-text-centered has-text-weight-bold"><span id="p1Display">0</span> to <span id="p2Display">0</span></h1>
+                         <label for="playto" class="label is-large is-inline">Playing To</label>
+                            <div class="select is-rounded">
+                            <select name="" id="playto">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                            </select>
+                        </div>
+                        <div class="subtitile is-large has-text-weight-semibold" id="subtitile">
+                            use the button below to keep score
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <button id="p1Button" class="is-primary button  is-large card-footer-item">+1 player one</button>
+                        <button id="p2Button" class="is-danger button is-large card-footer-item">+1 player two</button>
+                        <button id="reset" class="is-primary button is-large card-footer-item">reset</button>
+
+                       
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const p1Button = document.querySelector('#p1Button')
+        const p2Button = document.querySelector('#p2Button')
+        const p1Display = document.querySelector('#p1Display')
+        const p2Display = document.querySelector('#p2Display')
+        const resetButton = document.querySelector('#reset')
+        const playto = document.querySelector('#playto')
+
+
+        let p1Score = 0
+        let p2Score = 0
+        let winScore = 0
+        let isGameOver = false
+
+        p1Button.addEventListener('click', function () {
+            if (!isGameOver) {
+                p1Score += 1
+                if (p1Score === winScore) {
+                    isGameOver = true
+                    p1Display.classList.add('winner')
+                    p2Display.classList.add('loser')
+                    p1Button.disabled = true
+                    p2Button.disabled = true
+
+
+                }
+                p1Display.innerHTML = p1Score
+            }
+
+        })
+        p2Button.addEventListener('click', function () {
+            if (!isGameOver) {
+                p2Score += 1
+                if (p2Score === winScore) {
+                    isGameOver = true
+                    p2Display.classList.add('winner')
+                    p1Display.classList.add('loser')
+                    p1Button.disabled = true
+                    p2Button.disabled = true
+
+                }
+                p2Display.innerHTML = p2Score
+            }
+
+        })
+
+        playto.addEventListener('change', function () {
+            winScore = parseInt(this.value)
+            reset()
+        })
+
+
+        resetButton.addEventListener('click', reset)
+
+        function reset() {
+            isGameOver = false
+            p1Score = 0
+            p2Score = 0
+            p1Display.innerHTML = 0
+            p2Display.innerHTML = 0
+            p2Display.classList.remove('loser', 'winner')
+            p1Display.classList.remove('loser', 'winner')
+            p1Button.disabled = false
+            p2Button.disabled = false
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
